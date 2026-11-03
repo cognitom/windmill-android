@@ -1,0 +1,31 @@
+# Gradle を動かすコンテナ。scripts/build.sh は、ここの gradle サービスの `gradle` を
+# 呼ぶ前提で書いてある (ホストで打った `gradle` がこのコンテナへ届くようにしておく)。
+#
+#   docker compose -f compose.agent.yaml up -d --wait
+
+services:
+  gradle:
+    image: windmill-android-build
+    build: .
+    # up / run のたびにビルドする。固定タグのイメージを使い回すと、Dockerfile を
+    # 変えても古いまま動いてしまう。変わっていなければキャッシュで済む
+    pull_policy: build
+    volumes:
+      - .:/windmill-android
+      - gradle-cache:/root/.gradle
+    labels:
+      polar.commands: "gradle"
+    # exec で入るだけなので、起きていればよい
+    command: sleep infinity
+    healthcheck:
+      test: ["CMD", "test", "-f", "/windmill-android/settings.gradle.kts"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  # 依存のキャッシュとデバッグ用の署名鍵 (Dockerfile の ANDROID_USER_HOME)。
+  # issue をまたいで共有する
+  gradle-cache:
+    name: windmill-android-gradle-cache
+    external: true
