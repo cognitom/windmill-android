@@ -16,9 +16,17 @@ object Imes {
     fun englishId(context: Context): String =
         ComponentName(context, EnglishImeService::class.java).flattenToShortString()
 
-    /** 選んだものが無ければ Gboard を既定にする。Gboard も無ければ null */
-    fun japaneseId(context: Context): String? =
-        prefs(context).getString(KEY_JAPANESE_IME_ID, null) ?: defaultJapaneseId(context)
+    /**
+     * 選んだものが無ければ Gboard を既定にする。Gboard も無ければ null。
+     * 選んだ IME がアンインストールされていると、その ID を返し続けて変換キーが効かなくなるので、
+     * 入っていないときも Gboard に戻す
+     */
+    fun japaneseId(context: Context): String? {
+        val installed = imm(context).inputMethodList
+        val saved = prefs(context).getString(KEY_JAPANESE_IME_ID, null)
+        if (saved != null && installed.any { it.id == saved }) return saved
+        return installed.firstOrNull { it.packageName == GBOARD_PACKAGE }?.id
+    }
 
     fun setJapaneseId(context: Context, id: String) {
         prefs(context).edit().putString(KEY_JAPANESE_IME_ID, id).apply()
@@ -32,9 +40,6 @@ object Imes {
 
     fun isEnabled(context: Context, id: String): Boolean =
         imm(context).enabledInputMethodList.any { it.id == id }
-
-    private fun defaultJapaneseId(context: Context): String? =
-        imm(context).inputMethodList.firstOrNull { it.packageName == GBOARD_PACKAGE }?.id
 
     private fun imm(context: Context) =
         context.getSystemService(InputMethodManager::class.java)
