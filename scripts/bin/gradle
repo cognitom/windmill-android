@@ -1,0 +1,36 @@
+#!/bin/sh
+# compose.agent.yaml の gradle サービスへ `gradle` を振り向けるラッパー。コマンドをコンテナへ
+# 振り向ける仕組み (shim) が無い環境 (CI や手元) で、このディレクトリを PATH に足して使う。
+# 先に `docker volume create windmill-android-gradle-cache` と
+# `docker compose -f compose.agent.yaml up -d --wait` で gradle サービスを立てておく
+root=$(cd "$(dirname "$0")/../.." && pwd)
+compose="$root/compose.agent.yaml"
+
+# Gradle は作業ディレクトリでプロジェクトを決めるので、ホストの cwd をコンテナ側の
+# パスへ置き換える。リポジトリの外はコンテナから見えない
+case "$PWD" in
+  "$root") workdir=/windmill-android ;;
+  "$root"/*) workdir=/windmill-android${PWD#"$root"} ;;
+  *)
+    echo "gradle: リポジトリの外からは実行できません: $PWD" >&2
+    exit 1
+    ;;
+esac
+
+# 環境変数は要るものだけ渡す。release の署名の値はここを通らないとコンテナに届かない。
+# 値は書かずに名前だけ渡し、docker compose にホストの環境から引かせる
+# (コマンドラインにパスワードを載せない)。未設定のものは渡さない
+envs=
+for v in CI WINDMILL_KEYSTORE WINDMILL_KEYSTORE_PASSWORD WINDMILL_KEY_ALIAS WINDMILL_KEY_PASSWORD; do
+  eval "[ -n \"\${$v+x}\" ]" && envs="$envs -e $v"
+done
+
+# tty は stdin と stdout の両方が端末のときだけ取る。パイプ越しに取ると出力に CR が混ざる
+tty=-T
+if [ -t 0 ] && [ -t 1 ]; then
+  tty=
+fi
+
+# envs と tty は決まった語の羅列なので、単語分割に任せてよい
+# shellcheck disable=SC2086
+exec docker compose -f "$compose" exec $tty $envs -w "$workdir" gradle gradle "$@"

@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build & lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # 手元やエージェントと同じく、Gradle は compose.agent.yaml のコンテナの中で動かし、
+      # scripts/bin/gradle でそこへ振り向ける。イメージのビルドはここで済ませる。
+      # キャッシュのボリュームは external なので、compose は作ってくれない
+      - name: Create Gradle cache volume
+        run: docker volume create windmill-android-gradle-cache
+      - name: Start Gradle container
+        run: docker compose -f compose.agent.yaml up -d --wait
+      - name: Put gradle on PATH
+        run: echo "$GITHUB_WORKSPACE/scripts/bin" >> "$GITHUB_PATH"
+      - name: Build debug APK
+        run: bash scripts/build.sh
+      - name: Run lint
+        run: gradle lintDebug

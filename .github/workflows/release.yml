@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Gradle は compose.agent.yaml のコンテナの中で動かす (test.yml と同じ)
+      - name: Create Gradle cache volume
+        run: docker volume create windmill-android-gradle-cache
+      - name: Start Gradle container
+        run: docker compose -f compose.agent.yaml up -d --wait
+      - name: Put gradle on PATH
+        run: echo "$GITHUB_WORKSPACE/scripts/bin" >> "$GITHUB_PATH"
+      # 鍵ストアはリポジトリに置けないので Secrets から戻す。コンテナからはリポジトリしか
+      # 見えないので、置き場所はリポジトリの中 (.gitignore 済みの keystore/)
+      - name: Restore keystore
+        env:
+          WINDMILL_KEYSTORE_BASE64: ${{ secrets.WINDMILL_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$WINDMILL_KEYSTORE_BASE64" ]; then
+            echo "🚨  Secrets の WINDMILL_KEYSTORE_BASE64 がありません" 1>&2
+            exit 1
+          fi
+          mkdir -p keystore
+          printf '%s' "$WINDMILL_KEYSTORE_BASE64" | base64 -d > keystore/release.jks
+      # assembleRelease は lintVitalRelease も走らせるので、致命的な lint が残る版は出ない
+      - name: Build release APK
+        env:
+          WINDMILL_KEYSTORE: keystore/release.jks
+          WINDMILL_KEYSTORE_PASSWORD: ${{ secrets.WINDMILL_KEYSTORE_PASSWORD }}
+          WINDMILL_KEY_ALIAS: ${{ secrets.WINDMILL_KEY_ALIAS }}
+          WINDMILL_KEY_PASSWORD: ${{ secrets.WINDMILL_KEY_PASSWORD }}
+        run: bash scripts/build-release.sh "$GITHUB_REF_NAME"
+      # ビルドが失敗しても鍵ストアをランナーに残さない
+      - name: Remove keystore
+        if: always()
+        run: rm -rf keystore
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windmill-android-apk
+          path: output/windmill-android-${{ github.ref_name }}.apk
+          if-no-files-found: error
+
+  release:
+    name: Create release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: windmill-android-apk
+          path: output
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: output/windmill-android-${{ github.ref_name }}.apk
+          fail_on_unmatched_files: true
