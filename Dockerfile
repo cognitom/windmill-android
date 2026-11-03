@@ -7,10 +7,6 @@ ARG BUILD_TOOLS_VERSION=35.0.0
 ARG GRADLE_VERSION=8.11.1
 
 ENV ANDROID_HOME=/opt/android-sdk
-# デバッグ用の署名鍵は ANDROID_USER_HOME に作られる。Gradle のキャッシュと同じ
-# ボリュームに置き、環境を作り直しても同じ鍵で署名されるようにする
-# (鍵が変わると上書きインストールできず、ユーザー補助の許可も外れる)
-ENV ANDROID_USER_HOME=/root/.gradle/android
 ENV PATH=$PATH:/opt/gradle/bin:$ANDROID_HOME/cmdline-tools/latest/bin
 
 RUN apt-get update \
@@ -29,3 +25,12 @@ RUN curl -fsSL -o /tmp/gradle.zip "https://services.gradle.org/distributions/gra
  && unzip -q /tmp/gradle.zip -d /opt \
  && mv "/opt/gradle-${GRADLE_VERSION}" /opt/gradle \
  && rm /tmp/gradle.zip
+
+# イメージを作る間の sdkmanager に root の持ち物として作らせないよう、最後に置く。
+# Gradle のキャッシュは compose.agent.yaml のボリュームに置く。shim は rootful の
+# docker では root 以外で入ってくるので、$HOME ではなく固定の場所を指す
+ENV GRADLE_USER_HOME=/gradle-cache
+# デバッグ用の署名鍵は ANDROID_USER_HOME に作られる。キャッシュと同じボリュームに
+# 置き、環境を作り直しても同じ鍵で署名されるようにする
+# (鍵が変わると上書きインストールできず、ユーザー補助の許可も外れる)
+ENV ANDROID_USER_HOME=/gradle-cache/android
