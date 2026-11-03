@@ -64,7 +64,16 @@ release の署名の値は環境変数で渡す。欠けていると release の
 | `WINDMILL_KEY_ALIAS` | 鍵のエイリアス |
 | `WINDMILL_KEY_PASSWORD` | 鍵のパスワード |
 
-CI では Secrets (`WINDMILL_KEYSTORE_BASE64` と上の3つ) から渡し、鍵ストアはビルドの後に消す。環境変数は `scripts/bin/gradle` がコンテナへ渡す。polar の shim は決まった環境変数しか渡さないので、手元で release を作るときは `scripts/bin/gradle` を使う。
+環境変数は、polar の shim なら `compose.agent.yaml` の `polar.env` ラベル、shim の無い環境なら `scripts/bin/gradle` がコンテナへ渡す。手元では shim を使う。
+
+```bash
+WINDMILL_KEYSTORE=keystore/windmill-release.jks \
+WINDMILL_KEY_ALIAS=windmill \
+WINDMILL_KEYSTORE_PASSWORD=... WINDMILL_KEY_PASSWORD=... \
+  polar shim bash scripts/build-release.sh v0.1.0
+```
+
+CI では Secrets (`WINDMILL_KEYSTORE_BASE64` と上の3つ) から渡し、鍵ストアはビルドの後に消す。
 
 署名の鍵は、のちに Google Play の Play App Signing に「アプリの署名鍵」として預ける前提で作ってある。GitHub のリリースと Play の版を同じ署名にするため。**鍵をなくすと、同じアプリとして更新できなくなる。** 鍵ストアとパスワードはリポジトリの外に控えておく。
 
