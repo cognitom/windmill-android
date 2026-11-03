@@ -4,7 +4,10 @@
     <string name="ime_name">Windmill English</string>
     <string name="ime_subtype_name">English (US)</string>
     <string name="service_name">Windmill キー切り替え</string>
-    <string name="service_description">Windmill キーボードの変換キーで日本語の IME へ、無変換キーで英語用の IME (Windmill English) へ切り替えます。2つのキーはアプリへ渡しません。ほかのキーには触れません。</string>
+    <!-- summary はユーザー補助の一覧でサービス名の下に出る。一覧で見て分かる短さにする -->
+    <string name="service_summary">変換・無変換キーで日本語と英語の IME を切り替えます</string>
+    <!-- description はサービスを開いたときと、有効にするときの確認で出る。何をして何をしないかを書く -->
+    <string name="service_description">Windmill キーボードの変換キーで日本語の IME へ、無変換キーで英語用の IME (Windmill English) へ切り替えます。\n\n受け取るのはキーボードのキー入力だけで、画面の内容は読みません。変換・無変換の2つのキーはアプリへ渡さず、ほかのキーはそのままアプリへ届けます。</string>
 
     <string name="section_service">ユーザー補助サービス</string>
     <string name="section_ime">英語用の IME</string>

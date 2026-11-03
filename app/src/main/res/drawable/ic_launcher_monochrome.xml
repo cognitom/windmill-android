@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 13 以降のテーマアイコン用。システムが1色に塗り直すので、色の違いで描き分けていた
+     影は除き、残りの形 (キー、棒、羽根、中心の丸) を同じ色で描く。羽根の折り返しも羽根と同じ色。
+     不透明の1色なので、重なりを気にせず前景と同じ group の組み方で書ける -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- キー (赤いキーも含む)。1本のパスにまとめると lint の VectorPath (長すぎるパス) に
+         掛かるので、行ごとに分ける -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36.9,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M44.7,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M68.1,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36.9,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M44.7,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M68.1,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44.7,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+
+    <!-- 棒 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M53.3,46.7 a0.7,0.7 0 0 1 1.4,0 v14.6 a0.7,0.7 0 0 1 -1.4,0 z" />
+
+    <!-- 羽根と折り返しと中心の丸 -->
+    <group
+        android:translateX="54"
+        android:translateY="46"
+        android:scaleX="1.3"
+        android:scaleY="1.3">
+        <group android:rotation="0">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="90">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="180">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="270">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M-1.6,0 A1.6,1.6 0 1 1 1.6,0 A1.6,1.6 0 1 1 -1.6,0 Z" />
+    </group>
+</vector>

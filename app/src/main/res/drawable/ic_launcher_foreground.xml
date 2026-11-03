@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 108dp 基準の SVG をそのまま移したもの。角丸の rect は、VectorDrawable に rect が無いので
+     弧を使ったパスで描く -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- キー。1本のパスにまとめると lint の VectorPath (長すぎるパス) に掛かるので、行ごとに分ける -->
+    <path
+        android:fillColor="#9CC0F5"
+        android:pathData="M36.9,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M44.7,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+    <path
+        android:fillColor="#9CC0F5"
+        android:pathData="M36.9,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M44.7,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M68.1,69.8 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+    <path
+        android:fillColor="#9CC0F5"
+        android:pathData="M44.7,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M52.5,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z
+            M60.3,77.1 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+    <path
+        android:fillColor="#E8453C"
+        android:pathData="M68.1,62.5 h3 a1,1 0 0 1 1,1 v2.5 a1,1 0 0 1 -1,1 h-3 a1,1 0 0 1 -1,-1 v-2.5 a1,1 0 0 1 1,-1 z" />
+
+    <!-- かざぐるまの影。SVG では <g opacity="0.45"> で影全体をまとめて透かしているが、
+         VectorDrawable の group には透明度が無い。パスごとに fillAlpha を付けると、
+         棒・羽根・中心の丸が重なるところだけ濃くなってしまう。そこで影は1本のパスにまとめ、
+         重なりが一度しか塗られないようにした。1本にするために、回転は 90 度刻みなので
+         座標を回して書き、棒もかざぐるまの座標系 (54,46 を原点に 1.3 倍) に直してある。
+         nonZero で重なりを1回に数えるため、どの輪郭も画面上で時計回りにそろえている -->
+    <group
+        android:translateX="1.5"
+        android:translateY="1.5">
+        <group
+            android:translateX="54"
+            android:translateY="46"
+            android:scaleX="1.3"
+            android:scaleY="1.3">
+            <path
+                android:fillAlpha="0.45"
+                android:fillColor="#2F69C9"
+                android:fillType="nonZero"
+                android:pathData="M-0.53846,0.53846 a0.53846,0.53846 0 0 1 1.07692,0 V11.76923 a0.53846,0.53846 0 0 1 -1.07692,0 z
+                    M0,-17 L9.5,-9.5 L0,0 L-4.5,-7.5 Z
+                    M17,0 L9.5,9.5 L0,0 L7.5,-4.5 Z
+                    M0,17 L-9.5,9.5 L0,0 L4.5,7.5 Z
+                    M-17,0 L-9.5,-9.5 L0,0 L-7.5,4.5 Z
+                    M-1.6,0 A1.6,1.6 0 1 1 1.6,0 A1.6,1.6 0 1 1 -1.6,0 Z" />
+        </group>
+    </group>
+
+    <!-- 棒とかざぐるま -->
+    <path
+        android:fillColor="#9CC0F5"
+        android:pathData="M53.3,46.7 a0.7,0.7 0 0 1 1.4,0 v14.6 a0.7,0.7 0 0 1 -1.4,0 z" />
+    <group
+        android:translateX="54"
+        android:translateY="46"
+        android:scaleX="1.3"
+        android:scaleY="1.3">
+        <group android:rotation="0">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z" />
+            <path
+                android:fillColor="#D6E6FC"
+                android:pathData="M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="90">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z" />
+            <path
+                android:fillColor="#D6E6FC"
+                android:pathData="M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="180">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z" />
+            <path
+                android:fillColor="#D6E6FC"
+                android:pathData="M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <group android:rotation="270">
+            <path
+                android:fillColor="#FFFFFF"
+                android:pathData="M0,0 L0,-17 L9.5,-9.5 Z" />
+            <path
+                android:fillColor="#D6E6FC"
+                android:pathData="M0,0 L0,-17 L-4.5,-7.5 Z" />
+        </group>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M-1.6,0 A1.6,1.6 0 1 1 1.6,0 A1.6,1.6 0 1 1 -1.6,0 Z" />
+        <path
+            android:fillColor="#4A86E8"
+            android:pathData="M-0.7,0 A0.7,0.7 0 1 1 0.7,0 A0.7,0.7 0 1 1 -0.7,0 Z" />
+    </group>
+</vector>
