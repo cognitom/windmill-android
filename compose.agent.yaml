@@ -12,11 +12,12 @@ services:
     pull_policy: build
     volumes:
       - .:/windmill-android
-      - gradle-cache:/root/.gradle
+      - gradle-cache:/gradle-cache
     labels:
       polar.commands: "gradle"
-    # exec で入るだけなので、起きていればよい
-    command: sleep infinity
+    # exec で入るだけなので、起きていればよい。rootful の docker では shim が root
+    # 以外で入ってくるので、起動時 (root) にキャッシュを誰でも書けるようにしておく
+    command: sh -c 'chmod 1777 /gradle-cache && exec sleep infinity'
     healthcheck:
       test: ["CMD", "test", "-f", "/windmill-android/settings.gradle.kts"]
       interval: 5s
