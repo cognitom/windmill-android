@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 欲しいのは物理キーだけなので、アクセシビリティイベントは受けない。
+     画面の内容も読まないので canRetrieveWindowContent は付けない -->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagRequestFilterKeyEvents"
+    android:canRequestFilterKeyEvents="true"
+    android:description="@string/service_description"
+    android:settingsActivity="io.github.cognitom.windmill.SettingsActivity" />
