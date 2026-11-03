@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/section_service" />
+
+        <TextView
+            android:id="@+id/service_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <Button
+            android:id="@+id/open_accessibility_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_accessibility_settings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/service_note" />
+
+        <TextView
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/section_ime" />
+
+        <TextView
+            android:id="@+id/ime_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <Button
+            android:id="@+id/open_ime_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_ime_settings" />
+
+        <TextView
+            android:id="@+id/ime_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ime_note" />
+
+        <TextView
+            style="@android:style/TextAppearance.DeviceDefault.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/section_japanese" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/japanese_note" />
+
+        <RadioGroup
+            android:id="@+id/japanese_imes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</ScrollView>

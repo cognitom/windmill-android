@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 物理キーボードの配列は IME のサブタイプの言語で選ばれるので、英語のサブタイプを1つ持たせる -->
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="io.github.cognitom.windmill.SettingsActivity">
+    <subtype
+        android:imeSubtypeMode="keyboard"
+        android:imeSubtypeLocale="en_US"
+        android:languageTag="en-US"
+        android:label="@string/ime_subtype_name" />
+</input-method>

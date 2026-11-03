@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Windmill</string>
+    <string name="ime_name">Windmill English</string>
+    <string name="ime_subtype_name">English (US)</string>
+    <string name="service_name">Windmill キー切り替え</string>
+    <string name="service_description">Windmill キーボードの変換キーで日本語の IME へ、無変換キーで英語用の IME (Windmill English) へ切り替えます。2つのキーはアプリへ渡しません。ほかのキーには触れません。</string>
+
+    <string name="section_service">ユーザー補助サービス</string>
+    <string name="section_ime">英語用の IME</string>
+    <string name="section_japanese">日本語側の IME</string>
+    <string name="status_enabled">有効</string>
+    <string name="status_disabled">無効</string>
+    <string name="open_accessibility_settings">ユーザー補助の設定を開く</string>
+    <string name="open_ime_settings">キーボードの設定を開く</string>
+    <string name="service_note">APK から入れた場合、Android 13 以降はサービスを有効にする前に、アプリ情報のメニューから「制限付き設定を許可」が必要なことがあります。</string>
+    <string name="ime_note">Android 13 以降は、サービスが動きだしたときに自動で有効になります。</string>
+    <string name="japanese_note">変換キーで切り替える先です。無効な IME は、キーボードの設定で有効にしてから使えます。</string>
+    <string name="ime_disabled_suffix">(無効)</string>
+    <string name="no_ime_found">ほかの IME が見つかりません</string>
+</resources>
