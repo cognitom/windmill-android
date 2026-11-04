@@ -64,3 +64,9 @@ Android 13 以降は、APK から入れたアプリのユーザー補助サー�
 ### 5. 日本語側の IME を選ぶ (任意)
 
 変換キーで切り替える先は、既定では Gboard です。ほかの IME にしたいときは、アプリの設定画面の「日本語側の IME」で選びます。無効な IME は、キーボードの設定で有効にしてから選びます。
+
+## ライセンス
+
+Copyright (c) 2026 Tsutomu Kawamura
+
+このリポジトリのソースコードは **GPL-2.0-or-later** (GNU General Public License version 2, または任意のそれ以降のバージョン) で配布しています。全文は [LICENSE](LICENSE) を参照してください。
