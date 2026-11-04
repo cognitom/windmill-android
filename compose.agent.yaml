@@ -15,6 +15,8 @@ services:
       - gradle-cache:/gradle-cache
     labels:
       polar.commands: "gradle"
+      # release の署名の値。shim は許可リストにある環境変数しかコンテナへ渡さない
+      polar.env: "WINDMILL_KEYSTORE,WINDMILL_KEYSTORE_PASSWORD,WINDMILL_KEY_ALIAS,WINDMILL_KEY_PASSWORD"
     # exec で入るだけなので、起きていればよい。rootful の docker では shim が root
     # 以外で入ってくるので、起動時 (root) にキャッシュを誰でも書けるようにしておく
     command: sh -c 'chmod 1777 /gradle-cache && exec sleep infinity'
